@@ -502,6 +502,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6634374e724ee9c46b01ee4f08d46817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Board
+  tetrominos:
+  - tetromino: 0
+    tile: {fileID: 11400000, guid: 39ca471402018de4da2b4086fd788a51, type: 2}
+  - tetromino: 1
+    tile: {fileID: 11400000, guid: 268f093a014036941b10cebaf9490c5e, type: 2}
+  - tetromino: 2
+    tile: {fileID: 11400000, guid: 141093d7c69b0f34e97134a8d073f9ef, type: 2}
+  - tetromino: 3
+    tile: {fileID: 11400000, guid: b455598ac5856c241b1238a3f5ea54ce, type: 2}
+  - tetromino: 4
+    tile: {fileID: 11400000, guid: 7bc8bb77e33a9494081ebc9b687c809e, type: 2}
+  - tetromino: 5
+    tile: {fileID: 11400000, guid: 22a68d45a8f068a44b03a79c1101ba1b, type: 2}
+  - tetromino: 6
+    tile: {fileID: 11400000, guid: 905f44e90a86b0b42b3ab4285ec8ee3f, type: 2}
 --- !u!156049354 &1619598804
 Grid:
   m_ObjectHideFlags: 0

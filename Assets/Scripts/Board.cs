@@ -89,7 +89,6 @@ public class Board : MonoBehaviour {
             }
         }
     }
-
     private bool IsLineFull(int row) {
         RectInt bounds = this.Bounds;
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
@@ -7,6 +8,8 @@ public class Board : MonoBehaviour {
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+
+    public TextMeshProUGUI actionLog;
 
     public RectInt Bounds {
         get {
@@ -26,6 +29,7 @@ public class Board : MonoBehaviour {
     }
 
     private void Start() {
+        actioLog.text = "Test";
         SpawnPiece();
     }
 
@@ -47,6 +51,7 @@ public class Board : MonoBehaviour {
         this.tilemap.ClearAllTiles();
     }
 
+    // placing tiles of a piece on the board/tilemap
     public void Set(Piece piece) {
         for (int i = 0; i < piece.cells.Length; i++) {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
@@ -54,6 +59,7 @@ public class Board : MonoBehaviour {
         }
     }
 
+    // removes tiles of a piece from the board/tilemap
     public void Clear(Piece piece) {
         for (int i = 0; i < piece.cells.Length; i++) {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
@@ -75,7 +81,9 @@ public class Board : MonoBehaviour {
         }
         return true;
     }
-
+    
+    // log in the action log
+    // how many lines got cleared at once
     public void ClearLines() {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
@@ -102,14 +110,20 @@ public class Board : MonoBehaviour {
         return true;
     }
 
+    // log in the action log
+    // color of tile used to complete the line (check what color the current piece is)
+    // color tiles that got cleared
     private void LineClear(int row) {
         RectInt bounds = this.Bounds;
 
+        // clears current row
         for (int col = bounds.xMin; col < bounds.xMax; col++) {
             Vector3Int position = new Vector3Int(col, row, 0);
+            // add to a linear data structure what tile color got removed(whatever is currently there)S
             this.tilemap.SetTile(position, null);
         }
 
+        // drops all lines above one row
         while (row < bounds.yMax) {
             for (int col = bounds.xMin; col < bounds.xMax; col++) {
                 Vector3Int position = new Vector3Int(col, row + 1, 0);

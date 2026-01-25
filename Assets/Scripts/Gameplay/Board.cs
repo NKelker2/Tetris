@@ -8,8 +8,10 @@ public class Board : MonoBehaviour {
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    private Log log;
 
-    public TextMeshProUGUI actionLog;
+    //moved log string var from here log.cs
+    //public TextMeshProUGUI actionLog;
 
     public RectInt Bounds {
         get {
@@ -22,6 +24,8 @@ public class Board : MonoBehaviour {
 
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
+        //get value from log.cs
+        this.log = GetComponentInChildren<Log>();
 
         for (int i = 0; i < this.tetrominos.Length; i++) {
             tetrominos[i].Initialize();
@@ -29,7 +33,8 @@ public class Board : MonoBehaviour {
     }
 
     private void Start() {
-        actioLog.text = "Test";
+        //initialize log text
+        this.log.actionLog.text = "Game Started\n";
         SpawnPiece();
     }
 

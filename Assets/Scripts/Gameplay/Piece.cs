@@ -33,6 +33,7 @@ public class Piece : MonoBehaviour {
         }
     }
 
+    //built in methods - update happens every game tick; this is pretty much the game loop
     private void Update() {
         this.board.Clear(this);
 

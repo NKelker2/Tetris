@@ -1,32 +1,62 @@
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using TMPro;
+using UnityEngine.Tilemaps;
+using System;
+using Unity.VisualScripting;
 
-public class Log : MonoBehaviour{
+public class Log : MonoBehaviour {
 
-	//currently in Board.cs
-	public TextMeshProUGUI actionLog;
-    //public TextMeshProUGUI scoring;
+    public TextMeshProUGUI actionLog;
+    public TextMeshProUGUI scoring;
 
-/*
-	//lil k additions for scoring
-    public static score=0;
-    //scoring.text="";
-    public static int red=5;
-    public static int blue=5;
-    public static int cyan=5;
-    public static int purple=5; 
-    public static int yellow=5;
+    //lil k additions for scoring
+    public double score;
+    public int red;
+    public int blue;
+    public int cyan;
+    public int purple;
+    public int yellow;
+    int lineCount = 0;
 
-    public int Linescore(int row) {
-        for (int col = bounds.xMin; col < bounds.xMax; col++) {
-            Vector3Int cellPos = new Vector3Int(a, row, 0);
-            Color c = tilemap.GetColor(cellPos);
-        }
+    public Log() {
+        score = 0;
+        red = 5;
+        blue = 5;
+        cyan = 5;
+        purple = 5;
+        yellow = 5;
     }
-	*/    
-    
+
+    public void LineScore(Color[] line) {
+        double lineScore = 0;
+
+        for (int i = 0; i < line.Length; i++) {
+            if (line[i] == Color.red) {
+                lineScore += red;
+            }
+            else if (line[i] == Color.blue) {
+                lineScore += blue;
+            }
+            else if (line[i] == Color.cyan) {
+                lineScore += cyan;
+            }
+            else if (line[i] == Color.purple) {
+                lineScore += purple;
+            }
+            else if (line[i] == Color.yellow) {
+                lineScore += yellow;
+            }
+        }
+
+        score += lineScore;
+        //update score
+        scoring.text = "Score" + score.ToString();
+    }
+
+    // accept a string
+    // update collective string for actionlog with new inputs being a new line
+    // remove old lines after 10 added lines
+    public void printToGame(String input) {
+        lineCount++;
+    }
 }

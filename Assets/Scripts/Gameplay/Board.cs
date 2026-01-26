@@ -8,6 +8,7 @@ public class Board : MonoBehaviour {
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+
     private Log log;
 
     //moved log string var from here log.cs
@@ -86,7 +87,7 @@ public class Board : MonoBehaviour {
         }
         return true;
     }
-    
+
     // log in the action log
     // how many lines got cleared at once
     public void ClearLines() {
@@ -120,12 +121,15 @@ public class Board : MonoBehaviour {
     // color tiles that got cleared
     private void LineClear(int row) {
         RectInt bounds = this.Bounds;
+        Color[] colors = new Color[10];
 
         // clears current row
         for (int col = bounds.xMin; col < bounds.xMax; col++) {
             Vector3Int position = new Vector3Int(col, row, 0);
-            // add to a linear data structure what tile color got removed(whatever is currently there)S
+            // add to a linear data structure what tile color got removed(whatever is currently there)
+            colors[col - bounds.xMin] = this.tilemap.GetColor(position);
             this.tilemap.SetTile(position, null);
+            log.LineScore(colors);
         }
 
         // drops all lines above one row
@@ -140,5 +144,7 @@ public class Board : MonoBehaviour {
 
             row++;
         }
+
+
     }
 }

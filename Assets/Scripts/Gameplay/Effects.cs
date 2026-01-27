@@ -31,6 +31,11 @@ public class RedCombo : Effects {
     }
 
     public override double ApplyEffect() {
+        combo++;
         return 1;
+    }
+
+    public void reset() {
+        combo = 0;
     }
 }

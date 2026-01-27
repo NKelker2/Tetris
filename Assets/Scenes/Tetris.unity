@@ -576,7 +576,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Good moringing
+  m_text: 'Score: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1147,11 +1147,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Log
   actionLog: {fileID: 1696140602}
   scoring: {fileID: 1285898711}
-  score: 0
-  red: 5
+  colors:
+  - {fileID: 11400000, guid: b455598ac5856c241b1238a3f5ea54ce, type: 2}
+  - {fileID: 11400000, guid: 39ca471402018de4da2b4086fd788a51, type: 2}
+  - {fileID: 11400000, guid: 22a68d45a8f068a44b03a79c1101ba1b, type: 2}
+  - {fileID: 11400000, guid: 7bc8bb77e33a9494081ebc9b687c809e, type: 2}
+  - {fileID: 11400000, guid: 141093d7c69b0f34e97134a8d073f9ef, type: 2}
+  - {fileID: 11400000, guid: 905f44e90a86b0b42b3ab4285ec8ee3f, type: 2}
+  - {fileID: 11400000, guid: 268f093a014036941b10cebaf9490c5e, type: 2}
   blue: 5
   cyan: 5
+  green: 5
+  orange: 5
   purple: 5
+  red: 5
   yellow: 5
 --- !u!1 &1665133087
 GameObject:

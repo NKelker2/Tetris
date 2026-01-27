@@ -36,6 +36,7 @@ public class Board : MonoBehaviour {
     private void Start() {
         //initialize log text
         this.log.actionLog.text = "Game Started\n";
+        this.log.scoring.text = "Score: " + 0;
         SpawnPiece();
     }
 
@@ -91,12 +92,14 @@ public class Board : MonoBehaviour {
     // log in the action log
     // how many lines got cleared at once
     public void ClearLines() {
+        int combo = 1;
+
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
 
         while (row < bounds.yMax) {
             if (IsLineFull(row)) {
-                LineClear(row);
+                LineClear(row, combo++);
             }
             else {
                 row++;
@@ -119,17 +122,16 @@ public class Board : MonoBehaviour {
     // log in the action log
     // color of tile used to complete the line (check what color the current piece is)
     // color tiles that got cleared
-    private void LineClear(int row) {
+    private void LineClear(int row, int combo) {
         RectInt bounds = this.Bounds;
-        Color[] colors = new Color[10];
+        TileBase[] colors = new TileBase[10];
 
         // clears current row
         for (int col = bounds.xMin; col < bounds.xMax; col++) {
             Vector3Int position = new Vector3Int(col, row, 0);
             // add to a linear data structure what tile color got removed(whatever is currently there)
-            colors[col - bounds.xMin] = this.tilemap.GetColor(position);
+            colors[col - bounds.xMin] = this.tilemap.GetTile(position);
             this.tilemap.SetTile(position, null);
-            log.LineScore(colors);
         }
 
         // drops all lines above one row
@@ -145,6 +147,7 @@ public class Board : MonoBehaviour {
             row++;
         }
 
+        log.LineScore(colors, combo);
 
     }
 }

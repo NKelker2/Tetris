@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.Tilemaps;
 using System;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class Log : MonoBehaviour {
 
@@ -10,7 +11,10 @@ public class Log : MonoBehaviour {
     public TextMeshProUGUI scoring;
 
     //Ordered: blue, cyan, green, orange, purple, red, yellow
+    // used for comparison in LineScore method
     public Tile[] colors;
+
+    private String log;
 
     //lil k additions for scoring
     private double score;
@@ -21,7 +25,6 @@ public class Log : MonoBehaviour {
     public int purple;
     public int red;
     public int yellow;
-    int lineCount = 0;
 
     public void LineScore(TileBase[] line, int combo) {
         double lineScore = 0;
@@ -42,9 +45,7 @@ public class Log : MonoBehaviour {
                 lineScore += red;
             else if (line[i] == colors[6])
                 lineScore += yellow;
-
         }
-
 
         score += lineScore * combo;
         //update score
@@ -55,6 +56,7 @@ public class Log : MonoBehaviour {
     // update collective string for actionlog with new inputs being a new line
     // remove old lines after 10 added lines
     public void printToGame(String input) {
-        lineCount++;
+        log = input + "\n" + log;
+        actionLog.text = log;
     }
 }

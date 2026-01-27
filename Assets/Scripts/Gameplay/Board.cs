@@ -35,7 +35,7 @@ public class Board : MonoBehaviour {
 
     private void Start() {
         //initialize log text
-        this.log.actionLog.text = "Game Started\n";
+        log.printToGame("Game has started");
         this.log.scoring.text = "Score: " + 0;
         SpawnPiece();
     }
@@ -92,19 +92,22 @@ public class Board : MonoBehaviour {
     // log in the action log
     // how many lines got cleared at once
     public void ClearLines() {
-        int combo = 1;
+        int combo = 0;
 
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
 
         while (row < bounds.yMax) {
             if (IsLineFull(row)) {
-                LineClear(row, combo++);
+                combo++;
+                LineClear(row, combo);
             }
             else {
                 row++;
             }
         }
+        if (combo >= 1)
+            log.printToGame(combo + " Lines have been cleared");
     }
     private bool IsLineFull(int row) {
         RectInt bounds = this.Bounds;
@@ -148,6 +151,5 @@ public class Board : MonoBehaviour {
         }
 
         log.LineScore(colors, combo);
-
     }
 }

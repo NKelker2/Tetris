@@ -10,7 +10,7 @@ public static class Log {
     // accept a string
     // update collective string for actionlog with new inputs being a new line
     // remove old lines after 10 added lines
-    public static void printToGame(String input) {
+    public static void PrintToGame(String input) {
         log = input + "\n" + log;
         actionLog.text = log;
     }

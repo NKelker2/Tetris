@@ -1476,6 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9e4d31fc285fa4ebee31468675c165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Piece
+  mirror: {fileID: 1619598808}
   stepDelay: 1
   lockDelay: 0.5
 --- !u!114 &1619598807
@@ -1515,11 +1516,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619598802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9e4d31fc285fa4ebee31468675c165, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fbe1ff2a6c97d24fab1f25d0253a4fc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Piece
-  stepDelay: 1
-  lockDelay: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::Mirror
+  mirrorPiece: {fileID: 1619598806}
 --- !u!1 &1665133087
 GameObject:
   m_ObjectHideFlags: 0

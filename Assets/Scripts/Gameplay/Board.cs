@@ -8,7 +8,7 @@ using TMPro;
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
-    public Piece mirroredPiece { get; private set; }
+    public Mirror mirroredPiece { get; private set; }
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
@@ -29,12 +29,14 @@ public class Board : MonoBehaviour {
     }
 
     private void Awake() {
-        Piece[] pieces = GetComponentsInChildren<Piece>();
 
         this.tilemap = GetComponentInChildren<Tilemap>();
-        this.activePiece = pieces[0];
-        if (mirrorMode)
-            this.mirroredPiece = pieces[1];
+
+        this.activePiece = GetComponentInChildren<Piece>();
+        this.mirroredPiece = GetComponentInChildren<Mirror>();
+
+        if (!mirrorMode)
+            this.mirroredPiece.enabled = false;
 
         //get value from log.cs
         this.score = GetComponentInChildren<Scoring>();
@@ -52,7 +54,7 @@ public class Board : MonoBehaviour {
     private void Start() {
         //initialize log text
         SpawnPiece();
-        Log.printToGame("Game has started");
+        Log.PrintToGame("Game has started");
     }
 
     public void SpawnPiece() {
@@ -61,13 +63,14 @@ public class Board : MonoBehaviour {
 
         if (mirrorMode) {
             this.activePiece.Initialize(this, new Vector3Int((Bounds.xMin + this.spawnPosition.x) / 2, this.spawnPosition.y), data);
-            this.mirroredPiece.Initialize(this, new Vector3Int((Bounds.xMax + this.spawnPosition.x) / 2, this.spawnPosition.y), data);
-            if (IsValidPosition(this.activePiece, this.spawnPosition)) {
+            this.mirroredPiece.Initialize(this, new Vector3Int(this.activePiece.position.x * -1 - 1, this.spawnPosition.y), data);
+            if (IsValidPosition(this.activePiece, this.activePiece.position)) {
                 Set(this.activePiece);
-                Set(this.mirroredPiece);
             }
-            else
+            else {
+                Log.PrintToGame("Game over");
                 GameOver();
+            }
         }
         else {
             this.activePiece.Initialize(this, this.spawnPosition, data);
@@ -90,10 +93,26 @@ public class Board : MonoBehaviour {
         }
     }
 
+    // set method for mirror piece
+    public void Set(Mirror mirror) {
+        for (int i = 0; i < mirror.cells.Length; i++) {
+            Vector3Int tilePosition = mirror.cells[i] + mirror.position;
+            this.tilemap.SetTile(tilePosition, mirror.data.tile);
+        }
+    }
+
     // removes tiles of a piece from the board/tilemap
     public void Clear(Piece piece) {
         for (int i = 0; i < piece.cells.Length; i++) {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
+            this.tilemap.SetTile(tilePosition, null);
+        }
+    }
+
+    // removes mirror's tiles from the board
+    public void Clear(Mirror mirror) {
+        for (int i = 0; i < mirror.cells.Length; i++) {
+            Vector3Int tilePosition = mirror.cells[i] + mirror.position;
             this.tilemap.SetTile(tilePosition, null);
         }
     }
@@ -103,6 +122,21 @@ public class Board : MonoBehaviour {
 
         for (int i = 0; i < piece.cells.Length; i++) {
             Vector3Int tilePosition = piece.cells[i] + position;
+            if (!bounds.Contains((Vector2Int)tilePosition)) {
+                return false;
+            }
+            if (this.tilemap.HasTile(tilePosition)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool IsValidPosition(Mirror mirror, Vector3Int position) {
+        RectInt bounds = this.Bounds;
+
+        for (int i = 0; i < mirror.cells.Length; i++) {
+            Vector3Int tilePosition = mirror.cells[i] + position;
             if (!bounds.Contains((Vector2Int)tilePosition)) {
                 return false;
             }
@@ -131,7 +165,7 @@ public class Board : MonoBehaviour {
             }
         }
         if (combo >= 1)
-            Log.printToGame(combo + " Lines have been cleared");
+            Log.PrintToGame(combo + " Lines have been cleared");
     }
     private bool IsLineFull(int row) {
         RectInt bounds = this.Bounds;

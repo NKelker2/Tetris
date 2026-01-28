@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour {
 
+    public Mirror mirror;
+
     public Board board { get; private set; }
     public Vector3Int position { get; private set; }
     public Vector3Int[] cells { get; private set; }
@@ -83,6 +85,8 @@ public class Piece : MonoBehaviour {
         while (Move(Vector2Int.down)) {
             continue;
         }
+        if (mirror.isActiveAndEnabled)
+            mirror.hardDrop();
 
         Lock();
     }

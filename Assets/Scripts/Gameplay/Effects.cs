@@ -35,7 +35,7 @@ public class RedCombo : Effect {
 
     public override double ApplyEffect(int val) {
         combo++;
-        Log.printToGame("RedCombo gave " + val * (combo - 1) + " extra points");
+        Log.PrintToGame("RedCombo gave " + val * (combo - 1) + " extra points");
         return val * (combo - 1);
     }
 

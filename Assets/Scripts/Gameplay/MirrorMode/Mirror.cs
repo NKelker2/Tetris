@@ -41,17 +41,13 @@ public class Mirror : MonoBehaviour {
         board.Clear(this);
 
         Vector3Int newPosition = this.position;
+        Vector3Int testPosition = newPosition;
 
-        while (true) {
-            Vector3Int testPosition = newPosition;
+        testPosition.y -= 1;
+
+        while (board.IsValidPosition(this, testPosition)) {
+            newPosition = testPosition;
             testPosition.y -= 1;
-
-            if (board.IsValidPosition(this, testPosition)) {
-                newPosition = testPosition;
-            }
-            else {
-                break;
-            }
         }
 
         this.position = newPosition;

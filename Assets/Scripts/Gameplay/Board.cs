@@ -55,6 +55,7 @@ public class Board : MonoBehaviour {
         //initialize log text
         SpawnPiece();
         Log.PrintToGame("Game has started");
+        if (mirrorMode) Log.PrintToGame("Mirror mode is active");
     }
 
     public void SpawnPiece() {

@@ -1,9 +1,7 @@
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Piece : MonoBehaviour {
+
     public Board board { get; private set; }
     public Vector3Int position { get; private set; }
     public Vector3Int[] cells { get; private set; }

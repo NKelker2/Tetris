@@ -1,41 +1,45 @@
 using System;
 using UnityEngine;
+using TMPro;
+using UnityEngine.LightTransport;
 
-public abstract class Effects {
+public abstract class Effect {
 
     protected int count;
-    protected String debuffType;
-    protected String timeApplied;
+    protected String type;
+    protected String time;
+    protected int combo;
 
     /* to be implemented later when working on shop/inventory
     texture
     private String description;
     */
 
-    public Effects(String debuffType, String timeApplied) {
+    public Effect(String type, String time) {
         count = 1;
-        this.debuffType = debuffType;
-        this.timeApplied = timeApplied;
+        this.type = type;
+        this.time = time;
     }
 
     public void CountUp() {
         count++;
     }
-    public abstract double ApplyEffect();
+    public abstract double ApplyEffect(int val);
+    public abstract void Reset();
 }
 
-public class RedCombo : Effects {
-    private int combo;
-    public RedCombo(String debuffTypeS, String timeAppliedS) : base(debuffTypeS, timeAppliedS) {
+public class RedCombo : Effect {
+    public RedCombo() : base("red", "onClear") {
         combo = 0;
     }
 
-    public override double ApplyEffect() {
+    public override double ApplyEffect(int val) {
         combo++;
-        return 1;
+        Log.printToGame("RedCombo gave " + val * (combo - 1) + " extra points");
+        return val * (combo - 1);
     }
 
-    public void reset() {
+    public override void Reset() {
         combo = 0;
     }
 }

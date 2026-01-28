@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
@@ -5,11 +8,15 @@ using TMPro;
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
+    public Piece mirroredPiece { get; private set; }
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
 
-    private Log log;
+    public TextMeshProUGUI actionLogReference;
+    public Boolean mirrorMode = false;
+
+    private Scoring score;
 
     //moved log string var from here log.cs
     //public TextMeshProUGUI actionLog;
@@ -22,35 +29,52 @@ public class Board : MonoBehaviour {
     }
 
     private void Awake() {
+        Piece[] pieces = GetComponentsInChildren<Piece>();
 
         this.tilemap = GetComponentInChildren<Tilemap>();
-        this.activePiece = GetComponentInChildren<Piece>();
+        this.activePiece = pieces[0];
+        if (mirrorMode)
+            this.mirroredPiece = pieces[1];
+
         //get value from log.cs
-        this.log = GetComponentInChildren<Log>();
+        this.score = GetComponentInChildren<Scoring>();
 
         for (int i = 0; i < this.tetrominos.Length; i++) {
             tetrominos[i].Initialize();
         }
+
+        score.onClearEffects.Add("red", new List<Effect>());
+        score.onClearEffects["red"].Add(new RedCombo());
+
+        Log.actionLog = actionLogReference;
     }
 
     private void Start() {
         //initialize log text
-        log.printToGame("Game has started");
-        this.log.scoring.text = "Score: " + 0;
         SpawnPiece();
+        Log.printToGame("Game has started");
     }
 
     public void SpawnPiece() {
-        int random = Random.Range(0, this.tetrominos.Length);
+        int random = UnityEngine.Random.Range(0, this.tetrominos.Length);
         TetrominoData data = tetrominos[random];
 
-        this.activePiece.Initialize(this, this.spawnPosition, data);
-
-        if (IsValidPosition(this.activePiece, this.spawnPosition)) {
-            Set(this.activePiece);
+        if (mirrorMode) {
+            this.activePiece.Initialize(this, new Vector3Int((Bounds.xMin + this.spawnPosition.x) / 2, this.spawnPosition.y), data);
+            this.mirroredPiece.Initialize(this, new Vector3Int((Bounds.xMax + this.spawnPosition.x) / 2, this.spawnPosition.y), data);
+            if (IsValidPosition(this.activePiece, this.spawnPosition)) {
+                Set(this.activePiece);
+                Set(this.mirroredPiece);
+            }
+            else
+                GameOver();
         }
         else {
-            GameOver();
+            this.activePiece.Initialize(this, this.spawnPosition, data);
+            if (IsValidPosition(this.activePiece, this.spawnPosition))
+                Set(this.activePiece);
+            else
+                GameOver();
         }
     }
 
@@ -107,7 +131,7 @@ public class Board : MonoBehaviour {
             }
         }
         if (combo >= 1)
-            log.printToGame(combo + " Lines have been cleared");
+            Log.printToGame(combo + " Lines have been cleared");
     }
     private bool IsLineFull(int row) {
         RectInt bounds = this.Bounds;
@@ -150,6 +174,6 @@ public class Board : MonoBehaviour {
             row++;
         }
 
-        log.LineScore(colors, combo);
+        score.LineScore(colors, combo);
     }
 }

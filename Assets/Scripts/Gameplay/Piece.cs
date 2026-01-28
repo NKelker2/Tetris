@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Piece : MonoBehaviour {
 
     public Mirror mirror;
+    public TokenTilemap tokenTileMap;
 
     public Board board { get; private set; }
     public Vector3Int position { get; private set; }
@@ -31,6 +33,8 @@ public class Piece : MonoBehaviour {
         for (int i = 0; i < data.cells.Length; i++) {
             this.cells[i] = (Vector3Int)data.cells[i];
         }
+
+        tokenTileMap.curr = this.data.tile;
     }
 
     //built in methods - update happens every game tick; this is pretty much the game loop
@@ -77,6 +81,7 @@ public class Piece : MonoBehaviour {
 
     private void Lock() {
         this.board.Set(this);
+        this.tokenTileMap.HardSet();
         this.board.ClearLines();
         this.board.SpawnPiece();
     }

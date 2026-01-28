@@ -7,6 +7,9 @@ using TMPro;
 
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
+
+    public TokenTilemap tokenTileMap;
+
     public Piece activePiece { get; private set; }
     public Mirror mirroredPiece { get; private set; }
     public TetrominoData[] tetrominos;
@@ -56,6 +59,8 @@ public class Board : MonoBehaviour {
         SpawnPiece();
         Log.PrintToGame("Game has started");
         if (mirrorMode) Log.PrintToGame("Mirror mode is active");
+
+        tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);
     }
 
     public void SpawnPiece() {
@@ -201,9 +206,11 @@ public class Board : MonoBehaviour {
             for (int col = bounds.xMin; col < bounds.xMax; col++) {
                 Vector3Int position = new Vector3Int(col, row + 1, 0);
                 TileBase above = this.tilemap.GetTile(position);
+                TileBase aboveToken = this.tokenTileMap.tilemap.GetTile(position);
 
                 position = new Vector3Int(col, row, 0);
                 this.tilemap.SetTile(position, above);
+                this.tokenTileMap.tilemap.SetTile(position, aboveToken);
             }
 
             row++;

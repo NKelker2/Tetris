@@ -89,6 +89,7 @@ public class Board : MonoBehaviour {
 
     private void GameOver() {
         this.tilemap.ClearAllTiles();
+        this.tokenTileMap.tilemap.ClearAllTiles();
     }
 
     // placing tiles of a piece on the board/tilemap

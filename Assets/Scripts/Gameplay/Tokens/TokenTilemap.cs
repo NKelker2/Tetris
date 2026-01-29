@@ -16,9 +16,11 @@ public class TokenTilemap : MonoBehaviour {
 
     // Tile key will be the color they will spawn on
     public Dictionary<Tile, List<Token>> onClearTokens;
+    public Dictionary<TileBase, Token> allTokens;
 
     void Start() {
         onClearTokens = new Dictionary<Tile, List<Token>>();
+        allTokens = new Dictionary<TileBase, Token>();
     }
 
     void LateUpdate() {
@@ -59,5 +61,6 @@ public class TokenTilemap : MonoBehaviour {
         if (!onClearTokens.ContainsKey(tile))
             onClearTokens.Add(tile, new List<Token>());
         onClearTokens[tile].Add(new TokenTest(followingPiece, TokenIcons[tokenType], 0));
+        allTokens.Add(onClearTokens[tile][0].icon, onClearTokens[tile][0]);
     }
 }

@@ -29,6 +29,7 @@ public class TokenTest : Token {
     public TokenTest(Piece followingPiece, Tile icon, int cellPosition) : base(followingPiece, icon, cellPosition) { }
 
     public override int TokenEffect() {
+        Log.PrintToGame("TokenTest provided 5 points");
         return 5;
     }
 }

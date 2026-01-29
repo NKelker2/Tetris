@@ -193,11 +193,19 @@ public class Board : MonoBehaviour {
         RectInt bounds = this.Bounds;
         TileBase[] colors = new TileBase[10];
 
+        int bonusPoints = 0;
+
         // clears current row
         for (int col = bounds.xMin; col < bounds.xMax; col++) {
             Vector3Int position = new Vector3Int(col, row, 0);
             // add to a linear data structure what tile color got removed(whatever is currently there)
             colors[col - bounds.xMin] = this.tilemap.GetTile(position);
+
+            TileBase currToken = this.tokenTileMap.tilemap.GetTile(position);
+            if (currToken != null) {
+                if (this.tokenTileMap.allTokens.ContainsKey(currToken))
+                    bonusPoints += this.tokenTileMap.allTokens[currToken].TokenEffect();
+            }
             this.tilemap.SetTile(position, null);
         }
 
@@ -216,6 +224,6 @@ public class Board : MonoBehaviour {
             row++;
         }
 
-        score.LineScore(colors, combo);
+        score.LineScore(colors, combo, bonusPoints);
     }
 }

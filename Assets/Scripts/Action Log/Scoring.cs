@@ -31,8 +31,8 @@ public class Scoring : MonoBehaviour {
         onClearEffects = new Dictionary<string, List<Effect>>();
     }
 
-    public void LineScore(TileBase[] line, int combo) {
-        double lineScore = 0;
+    public void LineScore(TileBase[] line, int combo, int bonusPoints) {
+        double lineScore = bonusPoints;
 
 
         for (int i = 0; i < line.Length; i++) {

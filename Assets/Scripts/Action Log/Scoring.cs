@@ -5,7 +5,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Tilemaps;
 
-public class Scoring : MonoBehaviour {
+public class Scoring : MonoBehaviour
+{
 
     public Dictionary<String, List<Effect>> onClearEffects;
 
@@ -15,27 +16,24 @@ public class Scoring : MonoBehaviour {
     // used for comparison in LineScore method
     public Tile[] colors;
 
-    private String log;
-
-    //lil k additions for scoring
     private double score;
-    public int blue;
-    public int cyan;
-    public int green;
-    public int orange;
-    public int purple;
-    public int red;
-    public int yellow;
+    private double reqscore;
 
-    public Scoring() {
+    public int blue, cyan, green, orange, purple, red, yellow;
+
+    public Scoring()
+    {
         onClearEffects = new Dictionary<string, List<Effect>>();
+        reqscore = 100;
     }
 
-    public void LineScore(TileBase[] line, int combo, int bonusPoints) {
+    public void LineScore(TileBase[] line, int combo, int bonusPoints)
+    {
         double lineScore = bonusPoints;
 
 
-        for (int i = 0; i < line.Length; i++) {
+        for (int i = 0; i < line.Length; i++)
+        {
             if (line[i] == colors[0])
                 lineScore += blue;
             else if (line[i] == colors[1])
@@ -46,9 +44,11 @@ public class Scoring : MonoBehaviour {
                 lineScore += orange;
             else if (line[i] == colors[4])
                 lineScore += purple;
-            else if (line[i] == colors[5]) {
+            else if (line[i] == colors[5])
+            {
                 lineScore += red;
-                for (int j = 0; j < onClearEffects["red"].Count; j++) {
+                for (int j = 0; j < onClearEffects["red"].Count; j++)
+                {
                     lineScore += onClearEffects["red"][j].ApplyEffect(red);
                 }
             }
@@ -56,8 +56,10 @@ public class Scoring : MonoBehaviour {
                 lineScore += yellow;
         }
 
-        foreach (String key in onClearEffects.Keys) {
-            for (int i = 0; i < onClearEffects[key].Count; i++) {
+        foreach (String key in onClearEffects.Keys)
+        {
+            for (int i = 0; i < onClearEffects[key].Count; i++)
+            {
                 onClearEffects[key][i].Reset();
             }
         }
@@ -65,5 +67,17 @@ public class Scoring : MonoBehaviour {
         score += lineScore * combo;
         //update score
         scoring.text = "Score: " + score;
+    }
+
+    public void scoreneeded()
+    {
+        if (bossfight)
+        {
+            reqscore = reqscore * 3;
+        }
+        else
+        {
+            reqscore = reqscore * 2;
+        }
     }
 }

@@ -1,7 +1,4 @@
 using System;
-using UnityEngine;
-using TMPro;
-using UnityEngine.LightTransport;
 
 public abstract class Effect {
 

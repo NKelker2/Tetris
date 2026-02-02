@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Piece : MonoBehaviour {
 
@@ -17,6 +16,9 @@ public class Piece : MonoBehaviour {
 
     private float stepTime;
     private float lockTime;
+    private bool grounded;
+
+    public LockTimer lockTimer;
 
     public void Initialize(Board board, Vector3Int position, TetrominoData data) {
         this.board = board;
@@ -41,7 +43,10 @@ public class Piece : MonoBehaviour {
     private void Update() {
         this.board.Clear(this);
 
-        this.lockTime += Time.deltaTime;
+        grounded = !this.board.IsValidPosition(this, position + Vector3Int.down);
+
+        if (grounded)
+            this.lockTime += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Q)) {
             Rotate(-1);
@@ -107,6 +112,7 @@ public class Piece : MonoBehaviour {
             this.position = newPosition;
             this.lockTime = 0f;
         }
+
         return valid;
     }
 
@@ -177,5 +183,9 @@ public class Piece : MonoBehaviour {
         else {
             return min + (input - min) % (max - min);
         }
+    }
+
+    public float GetLockTime() {
+        return this.lockTime;
     }
 }

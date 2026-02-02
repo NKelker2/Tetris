@@ -30,12 +30,17 @@ public class TokenTilemap : MonoBehaviour {
     public void Set() {
         if (onClearTokens.ContainsKey(curr)) {
             foreach (Token token in onClearTokens[curr]) {
-                if (token.isActive)
+                if (token.isActive) {
                     this.tilemap.SetTile(token.position, null);
+                    if (board.mirrorMode)
+                        this.tilemap.SetTile(token.mirrorPosition, null);
+                }
 
                 token.updatePosition();
 
                 this.tilemap.SetTile(token.position, token.icon);
+                if (board.mirrorMode)
+                    this.tilemap.SetTile(token.mirrorPosition, token.icon);
 
                 token.isActive = true;
             }
@@ -45,12 +50,17 @@ public class TokenTilemap : MonoBehaviour {
     public void HardSet() {
         if (onClearTokens.ContainsKey(curr)) {
             foreach (Token token in onClearTokens[curr]) {
-                if (token.isActive)
+                if (token.isActive) {
                     this.tilemap.SetTile(token.position, null);
+                    if (board.mirrorMode)
+                        this.tilemap.SetTile(token.mirrorPosition, null);
+                }
 
                 token.updatePosition();
 
                 this.tilemap.SetTile(token.position, token.icon);
+                if (board.mirrorMode)
+                    this.tilemap.SetTile(token.mirrorPosition, token.icon);
 
                 token.isActive = false;
             }
@@ -60,7 +70,7 @@ public class TokenTilemap : MonoBehaviour {
     public void addOnClearToken(Tile tile, int tokenType) {
         if (!onClearTokens.ContainsKey(tile))
             onClearTokens.Add(tile, new List<Token>());
-        onClearTokens[tile].Add(new TokenTest(followingPiece, TokenIcons[tokenType], 0));
+        onClearTokens[tile].Add(new TokenTest(followingPiece, TokenIcons[tokenType], 0, this.board.mirrorMode));
         allTokens.Add(onClearTokens[tile][0].icon, onClearTokens[tile][0]);
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,17 +31,23 @@ public abstract class Token {
     public abstract int TokenEffect();
 
     public void updatePosition() {
-        this.position = followingPiece.position + followingPiece.cells[cellPosition];
+        this.position = this.followingPiece.position + this.followingPiece.cells[cellPosition];
         if (followingMirror != null)
-            this.mirrorPosition = followingMirror.position + followingMirror.cells[cellPosition];
+            this.mirrorPosition = this.followingMirror.position + this.followingMirror.cells[cellPosition];
     }
 }
 
 public class TokenTest : Token {
-    public TokenTest(Piece followingPiece, Tile icon, int cellPosition, bool mirrorMode) : base(followingPiece, icon, cellPosition, mirrorMode) { }
+    public TokenTest(Piece followingPiece, Tile icon, int cellPosition, bool mirrorMode) : base(followingPiece, icon, cellPosition, mirrorMode) {
+        Log.PrintToGame("Created new token at: " + cellPosition);
+    }
 
     public override int TokenEffect() {
         Log.PrintToGame("TokenTest provided 5 points");
         return 5;
+    }
+
+    public override String ToString() {
+        return "TokenTest: " + this.position.x + ", " + this.position.y;
     }
 }

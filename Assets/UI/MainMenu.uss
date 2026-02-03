@@ -2,10 +2,25 @@
 }
 
 .panel {
+    align-self: auto;
+    opacity: 1;
+    visibility: visible;
+    align-content: flex-start;
+    height: 100px;
 }
 
 .menu {
 }
 
 .unitybutton {
+}
+
+.unity-button:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(219, 112, 15);
+    scale: 1.1 1.1;
+    transition-property: scale;
+    transition-duration: 0.25s;
+    transition-delay: 0s;
+    transition-timing-function: ease-in-out;
 }

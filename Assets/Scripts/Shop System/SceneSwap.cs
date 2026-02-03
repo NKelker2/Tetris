@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public static class SceneSwap {
 
     public static void MoveScenes(int x) {
-        Log.PrintToGame("Switched scene");
         SceneManager.LoadScene(x);
     }
 

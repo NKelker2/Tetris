@@ -14,9 +14,6 @@ public class TokenTilemap : MonoBehaviour {
     public Board board;
     public Piece followingPiece;
 
-    void Start() {
-    }
-
     void LateUpdate() {
         this.Set();
     }

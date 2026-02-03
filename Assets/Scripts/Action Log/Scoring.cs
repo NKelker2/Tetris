@@ -37,8 +37,10 @@ public class Scoring : MonoBehaviour {
                 lineScore += purple;
             else if (line[i] == colors[5]) {
                 lineScore += red;
-                for (int j = 0; j < PlayerData.onClearEffects["red"].Count; j++) {
-                    lineScore += PlayerData.onClearEffects["red"][j].ApplyEffect(red);
+                if (PlayerData.onClearEffects.ContainsKey("Red")) {
+                    for (int j = 0; j < PlayerData.onClearEffects["red"].Count; j++) {
+                        lineScore += PlayerData.onClearEffects["red"][j].ApplyEffect(red);
+                    }
                 }
             }
             else if (line[i] == colors[6])
@@ -57,19 +59,6 @@ public class Scoring : MonoBehaviour {
         ToShop();
 
     }
-
-    /*
-    public void scoreneeded() {
-        if (bossfight)
-        {
-            reqscore = reqScore * 3;
-        }
-        else
-        {
-            reqscore = reqScore * 2;
-        }
-    }
-    */
 
     public void ToShop() {
         if (score >= PlayerData.reqScore) {

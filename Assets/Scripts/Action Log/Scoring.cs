@@ -5,9 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Tilemaps;
 
-public class Scoring : MonoBehaviour
-{
-    public SceneSwap sceneSwap;
+public class Scoring : MonoBehaviour {
 
     public Dictionary<String, List<Effect>> onClearEffects;
     public TextMeshProUGUI scoring;
@@ -21,19 +19,15 @@ public class Scoring : MonoBehaviour
 
     public int blue, cyan, green, orange, purple, red, yellow;
 
-    public Scoring()
-    {
+    public Scoring() {
         onClearEffects = new Dictionary<string, List<Effect>>();
-        sceneSwap = new SceneSwap();
     }
 
-    public void LineScore(TileBase[] line, int combo, int bonusPoints)
-    {
+    public void LineScore(TileBase[] line, int combo, int bonusPoints) {
         double lineScore = bonusPoints;
 
 
-        for (int i = 0; i < line.Length; i++)
-        {
+        for (int i = 0; i < line.Length; i++) {
             if (line[i] == colors[0])
                 lineScore += blue;
             else if (line[i] == colors[1])
@@ -44,11 +38,9 @@ public class Scoring : MonoBehaviour
                 lineScore += orange;
             else if (line[i] == colors[4])
                 lineScore += purple;
-            else if (line[i] == colors[5])
-            {
+            else if (line[i] == colors[5]) {
                 lineScore += red;
-                for (int j = 0; j < onClearEffects["red"].Count; j++)
-                {
+                for (int j = 0; j < onClearEffects["red"].Count; j++) {
                     lineScore += onClearEffects["red"][j].ApplyEffect(red);
                 }
             }
@@ -56,10 +48,8 @@ public class Scoring : MonoBehaviour
                 lineScore += yellow;
         }
 
-        foreach (String key in onClearEffects.Keys)
-        {
-            for (int i = 0; i < onClearEffects[key].Count; i++)
-            {
+        foreach (String key in onClearEffects.Keys) {
+            for (int i = 0; i < onClearEffects[key].Count; i++) {
                 onClearEffects[key][i].Reset();
             }
         }
@@ -84,11 +74,9 @@ public class Scoring : MonoBehaviour
     }
     */
 
-    public void ToShop()
-    {
-        if (score >= reqScore)
-        {
-            sceneSwap.MoveScenes(0);
+    public void ToShop() {
+        if (score >= reqScore) {
+            SceneSwap.MoveScenes(1);
         }
     }
 

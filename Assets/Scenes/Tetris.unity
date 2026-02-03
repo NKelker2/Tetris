@@ -624,7 +624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df972df053e07534ab3b5a67016c8d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  active: 0
   piece: {fileID: 1619598806}
   maximum: 0
   current: 0
@@ -1694,7 +1693,7 @@ MonoBehaviour:
   spawnPosition: {x: -1, y: 8, z: 0}
   boardSize: {x: 10, y: 20}
   actionLogReference: {fileID: 1260720889}
-  mirrorMode: 1
+  mirrorMode: 0
 --- !u!156049354 &1619598804
 Grid:
   m_ObjectHideFlags: 0
@@ -1761,6 +1760,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 141093d7c69b0f34e97134a8d073f9ef, type: 2}
   - {fileID: 11400000, guid: 905f44e90a86b0b42b3ab4285ec8ee3f, type: 2}
   - {fileID: 11400000, guid: 268f093a014036941b10cebaf9490c5e, type: 2}
+  reqScore: 100
   blue: 5
   cyan: 5
   green: 5

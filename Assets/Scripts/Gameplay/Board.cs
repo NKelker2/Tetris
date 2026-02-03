@@ -57,7 +57,7 @@ public class Board : MonoBehaviour {
     private void Start() {
         //initialize log text
         SpawnPiece();
-        Log.PrintToGame("Game has started");
+        Log.PrintToGame("Round has started");
         if (mirrorMode) Log.PrintToGame("Mirror mode is active");
 
         tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);

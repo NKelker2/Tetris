@@ -1,9 +1,19 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class sceneswap : MonoBehavior
+public class SceneSwap : MonoBehaviour
 {
-    public void movescenes(int x)
+    Log log;
+
+    public SceneSwap(Log log)
     {
+        this.log = log;
+
+    }
+
+    public void MoveScenes(int x)
+    {
+        log.PrintToGame("Switched scene");
         SceneManager.LoadScene(x);
     }
 

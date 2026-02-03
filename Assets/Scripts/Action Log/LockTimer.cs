@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LockTimer : MonoBehaviour {
+public class LockTimer : MonoBehaviour
+{
 
     public Piece piece;
 
@@ -9,21 +10,25 @@ public class LockTimer : MonoBehaviour {
     public float current;
     public Image mask;
 
-    void Start() {
+    void Start()
+    {
         maximum = piece.lockDelay;
     }
 
-    void Update() {
+    void Update()
+    {
         current = this.piece.GetLockTime();
         getFillAmount();
     }
 
-    public void getFillAmount() {
+    public void getFillAmount()
+    {
         float fillAmount = current / maximum;
         mask.fillAmount = fillAmount;
     }
 
-    public void Reset() {
+    public void Reset()
+    {
         current = 0;
     }
 }

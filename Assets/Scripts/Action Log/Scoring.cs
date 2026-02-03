@@ -7,9 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class Scoring : MonoBehaviour
 {
+    public SceneSwap sceneSwap;
 
     public Dictionary<String, List<Effect>> onClearEffects;
-
     public TextMeshProUGUI scoring;
 
     //Ordered: blue, cyan, green, orange, purple, red, yellow
@@ -17,14 +17,14 @@ public class Scoring : MonoBehaviour
     public Tile[] colors;
 
     private double score;
-    private double reqscore;
+    public double reqScore;
 
     public int blue, cyan, green, orange, purple, red, yellow;
 
     public Scoring()
     {
         onClearEffects = new Dictionary<string, List<Effect>>();
-        reqscore = 100;
+        sceneSwap = new SceneSwap();
     }
 
     public void LineScore(TileBase[] line, int combo, int bonusPoints)
@@ -67,17 +67,29 @@ public class Scoring : MonoBehaviour
         score += lineScore * combo;
         //update score
         scoring.text = "Score: " + score;
+        ToShop();
+
     }
 
-    public void scoreneeded()
-    {
+    /*
+    public void scoreneeded() {
         if (bossfight)
         {
-            reqscore = reqscore * 3;
+            reqscore = reqScore * 3;
         }
         else
         {
-            reqscore = reqscore * 2;
+            reqscore = reqScore * 2;
         }
     }
+    */
+
+    public void ToShop()
+    {
+        if (score >= reqScore)
+        {
+            sceneSwap.MoveScenes(0);
+        }
+    }
+
 }

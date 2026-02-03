@@ -48,8 +48,8 @@ public class Board : MonoBehaviour {
             tetrominos[i].Initialize();
         }
 
-        score.onClearEffects.Add("red", new List<Effect>());
-        score.onClearEffects["red"].Add(new RedCombo());
+        PlayerData.onClearEffects.Add("red", new List<Effect>());
+        PlayerData.onClearEffects["red"].Add(new RedCombo());
 
         Log.actionLog = actionLogReference;
     }
@@ -204,8 +204,8 @@ public class Board : MonoBehaviour {
 
             TileBase currToken = this.tokenTileMap.tilemap.GetTile(position);
             if (currToken != null) {
-                if (this.tokenTileMap.allTokens.ContainsKey(currToken))
-                    bonusPoints += this.tokenTileMap.allTokens[currToken].TokenEffect();
+                if (PlayerData.allTokens.ContainsKey(currToken))
+                    bonusPoints += PlayerData.allTokens[currToken].TokenEffect();
             }
             this.tilemap.SetTile(position, null);
         }

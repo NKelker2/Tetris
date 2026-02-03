@@ -6,8 +6,6 @@ using TMPro;
 using UnityEngine.Tilemaps;
 
 public class Scoring : MonoBehaviour {
-
-    public Dictionary<String, List<Effect>> onClearEffects;
     public TextMeshProUGUI scoring;
 
     //Ordered: blue, cyan, green, orange, purple, red, yellow
@@ -15,12 +13,11 @@ public class Scoring : MonoBehaviour {
     public Tile[] colors;
 
     private double score;
-    public double reqScore;
 
     public int blue, cyan, green, orange, purple, red, yellow;
 
     public Scoring() {
-        onClearEffects = new Dictionary<string, List<Effect>>();
+        PlayerData.onClearEffects = new Dictionary<string, List<Effect>>();
     }
 
     public void LineScore(TileBase[] line, int combo, int bonusPoints) {
@@ -40,17 +37,17 @@ public class Scoring : MonoBehaviour {
                 lineScore += purple;
             else if (line[i] == colors[5]) {
                 lineScore += red;
-                for (int j = 0; j < onClearEffects["red"].Count; j++) {
-                    lineScore += onClearEffects["red"][j].ApplyEffect(red);
+                for (int j = 0; j < PlayerData.onClearEffects["red"].Count; j++) {
+                    lineScore += PlayerData.onClearEffects["red"][j].ApplyEffect(red);
                 }
             }
             else if (line[i] == colors[6])
                 lineScore += yellow;
         }
 
-        foreach (String key in onClearEffects.Keys) {
-            for (int i = 0; i < onClearEffects[key].Count; i++) {
-                onClearEffects[key][i].Reset();
+        foreach (String key in PlayerData.onClearEffects.Keys) {
+            for (int i = 0; i < PlayerData.onClearEffects[key].Count; i++) {
+                PlayerData.onClearEffects[key][i].Reset();
             }
         }
 
@@ -75,7 +72,7 @@ public class Scoring : MonoBehaviour {
     */
 
     public void ToShop() {
-        if (score >= reqScore) {
+        if (score >= PlayerData.reqScore) {
             SceneSwap.MoveScenes(1);
         }
     }

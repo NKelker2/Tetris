@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/game-over.uss?fileID=7433441132597879392&amp;guid=fbcedfa71fc73cb48a078e4657ee111f&amp;type=3#game-over" />
+    <ui:VisualElement name="panel" class="panel hidden" style="flex-grow: 1;" />
+</ui:UXML>

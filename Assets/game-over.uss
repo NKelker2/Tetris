@@ -1,0 +1,9 @@
+:root {
+}
+
+.panel {
+    background-color: rgba(13, 0, 255, 0.4);
+}
+
+.hidden {
+}

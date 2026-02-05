@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
@@ -49,9 +50,6 @@ public class Board : MonoBehaviour {
             tetrominos[i].Initialize();
         }
 
-        //PlayerData.onClearEffects.Add("red", new List<Effect>());
-        //PlayerData.onClearEffects["red"].Add(new RedCombo());
-
         Log.actionLog = actionLogReference;
     }
 
@@ -61,7 +59,10 @@ public class Board : MonoBehaviour {
         Log.PrintToGame("Round has started");
         if (mirrorMode) Log.PrintToGame("Mirror mode is active");
 
-        // tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);
+        tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);
+
+        PlayerData.onClearEffects.Add("red", new List<Effect>());
+        PlayerData.onClearEffects["red"].Add(new RedCombo());
     }
 
     public void SpawnPiece() {

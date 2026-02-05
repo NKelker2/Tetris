@@ -16,10 +16,6 @@ public class Scoring : MonoBehaviour {
 
     public int blue, cyan, green, orange, purple, red, yellow;
 
-    public Scoring() {
-        PlayerData.onClearEffects = new Dictionary<string, List<Effect>>();
-    }
-
     public void LineScore(TileBase[] line, int combo, int bonusPoints) {
         double lineScore = bonusPoints;
 
@@ -37,9 +33,11 @@ public class Scoring : MonoBehaviour {
                 lineScore += purple;
             else if (line[i] == colors[5]) {
                 lineScore += red;
-                if (PlayerData.onClearEffects.ContainsKey("Red")) {
+                if (PlayerData.onClearEffects.ContainsKey("red")) {
                     for (int j = 0; j < PlayerData.onClearEffects["red"].Count; j++) {
                         lineScore += PlayerData.onClearEffects["red"][j].ApplyEffect(red);
+
+                        Log.PrintToGame("Applied effect");
                     }
                 }
             }
@@ -63,7 +61,8 @@ public class Scoring : MonoBehaviour {
     public void ToShop() {
         if (score >= PlayerData.reqScore) {
             SceneSwap.MoveScenes(1);
+
+            PlayerData.reqScore *= 2;
         }
     }
-
 }

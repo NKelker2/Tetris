@@ -1,0 +1,13 @@
+:root {
+}
+
+.background {
+    background-color: rgb(75, 109, 183);
+}
+
+.next-round-button {
+    opacity: 1;
+}
+
+.unity-text-element {
+}

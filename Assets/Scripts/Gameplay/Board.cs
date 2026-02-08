@@ -59,10 +59,12 @@ public class Board : MonoBehaviour {
         Log.PrintToGame("Round has started");
         if (mirrorMode) Log.PrintToGame("Mirror mode is active");
 
+        /*
         tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);
 
         PlayerData.onClearEffects.Add("red", new List<Effect>());
         PlayerData.onClearEffects["red"].Add(new RedCombo());
+        */
     }
 
     public void SpawnPiece() {

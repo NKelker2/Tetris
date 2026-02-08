@@ -1,16 +1,25 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ShopUIManager : MonoBehaviour {
+    private ShopData shopData;
+
     public VisualElement ShopUI;
 
     public Button NextRoundButton;
-    public Button ShopSlot1;
+
     public Button RerollButton;
+
+    public Button ShopSlot1;
+    public String ShopSlot1Name;
+
 
     private void Awake() {
         ShopUI = GetComponent<UIDocument>().rootVisualElement;
+
+        shopData = GetComponent<UIDocument>().GetComponentInChildren<ShopData>();
     }
 
     private void OnEnable() {
@@ -21,10 +30,10 @@ public class ShopUIManager : MonoBehaviour {
         ShopSlot1.clicked += ShopSlot1Bought;
 
         RerollButton = ShopUI.Q<Button>("RerollButton");
-        RerollButton.clicked += RerollButtonClicked;
+        RerollButton.clicked += RerollButtonClicked; ;
 
-        //initializing shop items
-        ShopSlot1.text = UnityEngine.Random.Range(0, 10).ToString();
+        // initializing shop items
+        RerollButtonClicked();
     }
 
     private void OnNextRoundButtonClicked() {
@@ -33,16 +42,40 @@ public class ShopUIManager : MonoBehaviour {
 
     private void ShopSlot1Bought() {
         ShopSlot1.SetEnabled(false);
+        BuyItem(ShopSlot1Name);
     }
 
     private void RerollButtonClicked() {
-        ShopRerolled();
+        EffectSlotsRerolled(ShopSlot1);
     }
 
-    private void ShopRerolled() {
-        ShopSlot1.SetEnabled(true);
+    private void EffectSlotsRerolled(Button ShopSlot) {
+        // rarity 1-5 = common, 6-9 = uncommon, 10 = rare for later implementation
+        int rarity = UnityEngine.Random.Range(1, 5);
+        Sprite shopItem;
 
-        ShopSlot1.text = UnityEngine.Random.Range(0, 10).ToString();
+        /*
+        if (rarity == 10) 
+            shopItem = shopData.rareEffects[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+        else if (rarity >= 6)
+            shopItem = shopData.uncommonEffects[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+        else */
+        shopItem = shopData.commonEffects[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+
+        ShopSlot.SetEnabled(true);
+
+        ShopSlot.style.backgroundImage = new StyleBackground(shopItem.texture);
+
+        if (ShopSlot == ShopSlot1) ShopSlot1Name = shopItem.name;
+    }
+
+    private void BuyItem(String itemName) {
+
+        switch (itemName) {
+            case "RedCombo_0": // happens when item bought is red combo, would add to playerData effects list
+                EffectsManager.AddOnClearEffect(new RedCombo());
+                break;
+        }
     }
 }
 

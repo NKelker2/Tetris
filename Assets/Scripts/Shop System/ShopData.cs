@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopData {
+public class ShopData : MonoBehaviour {
+    public Sprite[] commonEffects;
 }

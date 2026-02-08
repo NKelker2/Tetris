@@ -3,7 +3,7 @@ using System;
 public abstract class Effect {
 
     protected int count;
-    protected String type;
+    public String type;
     protected String time;
     protected int combo;
 
@@ -32,8 +32,8 @@ public class RedCombo : Effect {
 
     public override double ApplyEffect(int val) {
         combo++;
-        Log.PrintToGame("RedCombo gave " + val * (combo - 1) + " extra points");
-        return val * (combo - 1);
+        Log.PrintToGame("RedCombo gave " + count * (val * (combo - 1)) + " extra points");
+        return count * (val * (combo - 1));
     }
 
     public override void Reset() {

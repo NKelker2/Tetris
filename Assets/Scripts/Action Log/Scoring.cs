@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 using TMPro;
@@ -62,7 +61,15 @@ public class Scoring : MonoBehaviour {
         if (score >= PlayerData.reqScore) {
             SceneSwap.MoveScenes(1);
 
-            PlayerData.reqScore *= 2;
+            PlayerData.reqScore *= 1.1;
+
+            if (PlayerData.currRound % 3 != 0)
+                PlayerData.money += 5;
+            else
+                PlayerData.money += 10;
+
+            PlayerData.currRound++;
+
         }
     }
 }

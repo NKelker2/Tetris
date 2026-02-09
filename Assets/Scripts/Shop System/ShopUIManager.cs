@@ -16,6 +16,10 @@ public class ShopUIManager : MonoBehaviour {
     public String ShopSlot1Name;
     public Label ShopSlot1Price;
 
+    public Button TokenSlot1;
+    public String TokenSlot1Name;
+    public Label TokenSlot1Price;
+
 
     private void Awake() {
         ShopUI = GetComponent<UIDocument>().rootVisualElement;
@@ -30,7 +34,12 @@ public class ShopUIManager : MonoBehaviour {
         ShopSlot1 = ShopUI.Q<Button>("ShopSlot1");
         ShopSlot1.clicked += ShopSlot1Bought;
 
+        TokenSlot1 = ShopUI.Q<Button>("TokenSlot1");
+        TokenSlot1.clicked += TokenSlot1Bought;
+
         ShopSlot1Price = ShopUI.Q<Label>("ShopSlot1Price");
+
+        TokenSlot1Price = ShopUI.Q<Label>("TokenSlot1Price");
 
         RerollButton = ShopUI.Q<Button>("RerollButton");
         RerollButton.clicked += RerollButtonClicked; ;
@@ -51,8 +60,17 @@ public class ShopUIManager : MonoBehaviour {
         }
     }
 
+    private void TokenSlot1Bought() {
+        if (PlayerData.money >= int.Parse(TokenSlot1Price.text.Substring(1))) {
+            TokenSlot1.SetEnabled(false);
+            BuyToken(TokenSlot1Name);
+            PlayerData.money -= int.Parse(TokenSlot1Price.text.Substring(1));
+        }
+    }
+
     private void RerollButtonClicked() {
         EffectSlotsRerolled(ShopSlot1);
+        TokenSlotsRerolled(TokenSlot1);
     }
 
     private void EffectSlotsRerolled(Button ShopSlot) {
@@ -85,12 +103,32 @@ public class ShopUIManager : MonoBehaviour {
         }
     }
 
-    private void BuyItem(String itemName) {
+    private void TokenSlotsRerolled(Button TokenSlot) {
+        // rarity 1-5 = common, 6-9 = uncommon, 10 = rare for later implementation
+        Sprite shopItem;
 
+        shopItem = shopData.tokens[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+
+        TokenSlot.SetEnabled(true);
+
+        TokenSlot.style.backgroundImage = new StyleBackground(shopItem.texture);
+
+        if (TokenSlot == TokenSlot1) {
+            TokenSlot1Name = shopItem.name;
+            TokenSlot1Price.text = "$" + 3.ToString();
+        }
+    }
+
+    private void BuyItem(String itemName) {
         switch (itemName) {
             case "RedCombo_0": // happens when item bought is red combo, would add to playerData effects list
                 EffectsManager.AddOnClearEffect(new RedCombo());
                 break;
+        }
+    }
+
+    private void BuyToken(String tokenName) {
+        switch (tokenName) {
         }
     }
 }

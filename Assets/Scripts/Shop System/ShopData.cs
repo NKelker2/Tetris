@@ -3,4 +3,6 @@ using UnityEngine;
 
 public class ShopData : MonoBehaviour {
     public Sprite[] commonEffects;
+
+    public Sprite[] tokens;
 }

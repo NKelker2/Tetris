@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUIManager
   ShopSlot1Name: 
+  TokenSlot1Name: 
 --- !u!114 &1572216041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +296,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopData
   commonEffects:
   - {fileID: -2089182024811672313, guid: 8e071bcebd6c25d4192595cc2e621e5a, type: 3}
+  tokens:
+  - {fileID: 4351584147543271715, guid: 4adac3610bd562647866a330a9053b53, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

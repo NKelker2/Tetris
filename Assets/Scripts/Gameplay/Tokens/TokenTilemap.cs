@@ -57,14 +57,4 @@ public class TokenTilemap : MonoBehaviour {
             }
         }
     }
-
-    public void addOnClearToken(Tile tile, int tokenType) {
-        if (!PlayerData.onClearTokens.ContainsKey(tile))
-            PlayerData.onClearTokens.Add(tile, new List<Token>());
-
-        PlayerData.onClearTokens[tile].Add(new TokenTest(followingPiece, TokenIcons[tokenType], PlayerData.onClearTokens[tile].Count, this.board.mirrorMode));
-
-        if (!PlayerData.allTokens.ContainsKey(PlayerData.onClearTokens[tile][0].icon))
-            PlayerData.allTokens.Add(PlayerData.onClearTokens[tile][0].icon, PlayerData.onClearTokens[tile][0]);
-    }
 }

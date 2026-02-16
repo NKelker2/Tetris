@@ -6,43 +6,47 @@ using UnityEngine.UIElements;
 public class ShopUIManager : MonoBehaviour {
     private ShopData shopData;
 
-    public VisualElement ShopUI;
+    public VisualElement shopUI;
+    public ColorSelectManager ColorSelect;
 
-    public Button NextRoundButton;
+    public Button nextRoundButton;
 
-    public Button RerollButton;
+    public Button rerollButton;
 
-    public Button ShopSlot1;
-    public String ShopSlot1Name;
-    public Label ShopSlot1Price;
+    public Button shopSlot1;
+    public String shopSlot1Name;
+    public Label shopSlot1Price;
 
-    public Button TokenSlot1;
-    public String TokenSlot1Name;
-    public Label TokenSlot1Price;
+    public Button tokenSlot1;
+    public String tokenSlot1Name;
+    public Label tokenSlot1Price;
 
 
     private void Awake() {
-        ShopUI = GetComponent<UIDocument>().rootVisualElement;
+        shopUI = GetComponent<UIDocument>().rootVisualElement;
 
         shopData = GetComponent<UIDocument>().GetComponentInChildren<ShopData>();
+
+        ColorSelect.colorSelectUI.SetEnabled(false);
+        ColorSelect.colorSelectUI.AddToClassList("hidden");
     }
 
     private void OnEnable() {
-        NextRoundButton = ShopUI.Q<Button>("NextRoundButton");
-        NextRoundButton.clicked += OnNextRoundButtonClicked;
+        nextRoundButton = shopUI.Q<Button>("NextRoundButton");
+        nextRoundButton.clicked += OnNextRoundButtonClicked;
 
-        ShopSlot1 = ShopUI.Q<Button>("ShopSlot1");
-        ShopSlot1.clicked += ShopSlot1Bought;
+        shopSlot1 = shopUI.Q<Button>("ShopSlot1");
+        shopSlot1.clicked += ShopSlot1Bought;
 
-        TokenSlot1 = ShopUI.Q<Button>("TokenSlot1");
-        TokenSlot1.clicked += TokenSlot1Bought;
+        tokenSlot1 = shopUI.Q<Button>("TokenSlot1");
+        tokenSlot1.clicked += TokenSlot1Bought;
 
-        ShopSlot1Price = ShopUI.Q<Label>("ShopSlot1Price");
+        shopSlot1Price = shopUI.Q<Label>("ShopSlot1Price");
 
-        TokenSlot1Price = ShopUI.Q<Label>("TokenSlot1Price");
+        tokenSlot1Price = shopUI.Q<Label>("TokenSlot1Price");
 
-        RerollButton = ShopUI.Q<Button>("RerollButton");
-        RerollButton.clicked += RerollButtonClicked; ;
+        rerollButton = shopUI.Q<Button>("RerollButton");
+        rerollButton.clicked += RerollButtonClicked; ;
 
         // initializing shop items
         RerollButtonClicked();
@@ -53,24 +57,28 @@ public class ShopUIManager : MonoBehaviour {
     }
 
     private void ShopSlot1Bought() {
-        if (PlayerData.money >= int.Parse(ShopSlot1Price.text.Substring(1))) {
-            ShopSlot1.SetEnabled(false);
-            BuyItem(ShopSlot1Name);
-            PlayerData.money -= int.Parse(ShopSlot1Price.text.Substring(1));
+        if (PlayerData.money >= int.Parse(shopSlot1Price.text.Substring(1))) {
+            shopSlot1.SetEnabled(false);
+            BuyItem(shopSlot1Name);
+            PlayerData.money -= int.Parse(shopSlot1Price.text.Substring(1));
         }
     }
 
     private void TokenSlot1Bought() {
-        if (PlayerData.money >= int.Parse(TokenSlot1Price.text.Substring(1))) {
-            TokenSlot1.SetEnabled(false);
-            BuyToken(TokenSlot1Name);
-            PlayerData.money -= int.Parse(TokenSlot1Price.text.Substring(1));
+        if (PlayerData.money >= int.Parse(tokenSlot1Price.text.Substring(1))) {
+            ColorSelect.tokenName = tokenSlot1Name;
+
+            ColorSelect.colorSelectUI.SetEnabled(true);
+            ColorSelect.colorSelectUI.RemoveFromClassList("hidden");
+
+            tokenSlot1.SetEnabled(false);
+            PlayerData.money -= int.Parse(tokenSlot1Price.text.Substring(1));
         }
     }
 
     private void RerollButtonClicked() {
-        EffectSlotsRerolled(ShopSlot1);
-        TokenSlotsRerolled(TokenSlot1);
+        EffectSlotsRerolled(shopSlot1);
+        TokenSlotsRerolled(tokenSlot1);
     }
 
     private void EffectSlotsRerolled(Button ShopSlot) {
@@ -97,9 +105,9 @@ public class ShopUIManager : MonoBehaviour {
 
         ShopSlot.style.backgroundImage = new StyleBackground(shopItem.texture);
 
-        if (ShopSlot == ShopSlot1) {
-            ShopSlot1Name = shopItem.name;
-            ShopSlot1Price.text = "$" + price.ToString();
+        if (ShopSlot == shopSlot1) {
+            shopSlot1Name = shopItem.name;
+            shopSlot1Price.text = "$" + price.ToString();
         }
     }
 
@@ -113,9 +121,9 @@ public class ShopUIManager : MonoBehaviour {
 
         TokenSlot.style.backgroundImage = new StyleBackground(shopItem.texture);
 
-        if (TokenSlot == TokenSlot1) {
-            TokenSlot1Name = shopItem.name;
-            TokenSlot1Price.text = "$" + 3.ToString();
+        if (TokenSlot == tokenSlot1) {
+            tokenSlot1Name = shopItem.name;
+            tokenSlot1Price.text = "$" + 3.ToString();
         }
     }
 
@@ -124,11 +132,6 @@ public class ShopUIManager : MonoBehaviour {
             case "RedCombo_0": // happens when item bought is red combo, would add to playerData effects list
                 EffectsManager.AddOnClearEffect(new RedCombo());
                 break;
-        }
-    }
-
-    private void BuyToken(String tokenName) {
-        switch (tokenName) {
         }
     }
 }

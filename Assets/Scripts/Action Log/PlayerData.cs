@@ -13,5 +13,5 @@ public static class PlayerData {
     public static int currRound = 2;
 
     public static double reqScore = 500;
-    public static double money = 0;
+    public static double money = 100;
 }

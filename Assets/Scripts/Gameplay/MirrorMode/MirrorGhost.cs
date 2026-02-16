@@ -11,15 +11,13 @@ public class MirrorGhost : MonoBehaviour {
     public Vector3Int position { get; private set; }
     public Vector3Int[] cells { get; private set; }
 
-    private void Awake() {
+    private void Start() {
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.cells = new Vector3Int[4];
-        if (!board.mirrorMode)
-            this.enabled = false;
     }
 
     private void LateUpdate() {
-        if (this.isActiveAndEnabled) {
+        if (board.mirrorMode) {
             Clear();
             Copy();
             Drop();

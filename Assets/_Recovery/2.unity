@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TokenTilemap
   tilemap: {fileID: 1772531072}
   TokenIcons:
-  - {fileID: 11400000, guid: 1e845afd5014e0d4b95b38c73931b4cc, type: 2}
+  - {fileID: 11400000, guid: 9d2c3ecdf69702a4ab6fa5d1433627d0, type: 2}
   curr: {fileID: 0}
   colors:
   - {fileID: 11400000, guid: b455598ac5856c241b1238a3f5ea54ce, type: 2}

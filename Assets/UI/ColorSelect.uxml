@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/ColorSelect.uss?fileID=7433441132597879392&amp;guid=8441bcfb9617e954c9cfd20c52bbc28f&amp;type=3#ColorSelect" />
+    <ui:Button text="Red" name="RedButton" style="background-color: rgb(255, 0, 0); justify-content: flex-start; align-self: center; align-content: auto; position: absolute; top: 250px; width: 50px; height: 50px;" />
+</ui:UXML>

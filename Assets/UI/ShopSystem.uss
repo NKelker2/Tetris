@@ -5,9 +5,20 @@
     background-color: rgb(75, 109, 183);
 }
 
-.next-round-button {
-    opacity: 1;
+.unity-text-element {
 }
 
-.unity-text-element {
+.unity-button {
+    border-top-color: rgb(108, 108, 108);
+    border-top-width: 7px;
+    border-bottom-color: rgb(51, 51, 51);
+    border-right-color: rgb(108, 108, 108);
+    border-left-color: rgb(51, 51, 51);
+    border-bottom-width: 7px;
+    border-right-width: 7px;
+    border-left-width: 7px;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
 }

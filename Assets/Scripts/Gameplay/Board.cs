@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 
 public class Board : MonoBehaviour {
     public Tilemap tilemap { get; private set; }
@@ -13,12 +10,15 @@ public class Board : MonoBehaviour {
     public TokenTilemap tokenTileMap;
 
     public Piece activePiece { get; private set; }
+
     public Mirror mirroredPiece { get; private set; }
+
     public TetrominoData[] tetrominos;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10, 20);
 
     public TextMeshProUGUI actionLogReference;
+
     public Boolean mirrorMode = false;
 
     private Scoring score;
@@ -38,10 +38,8 @@ public class Board : MonoBehaviour {
         this.tilemap = GetComponentInChildren<Tilemap>();
 
         this.activePiece = GetComponentInChildren<Piece>();
-        this.mirroredPiece = GetComponentInChildren<Mirror>();
 
-        if (!mirrorMode)
-            this.mirroredPiece.enabled = false;
+        this.mirroredPiece = GetComponentInChildren<Mirror>();
 
         //get value from log.cs
         this.score = GetComponentInChildren<Scoring>();
@@ -54,15 +52,13 @@ public class Board : MonoBehaviour {
     }
 
     public void Start() {
-        //initialize log text
+
+        if (PlayerData.currRound % 3 == 0)
+            mirrorMode = true;
+
         SpawnPiece();
         Log.PrintToGame("Round has started");
         if (mirrorMode) Log.PrintToGame("Mirror mode is active");
-
-        tokenTileMap.addOnClearToken(tetrominos[6].tile, 0);
-
-        PlayerData.onClearEffects.Add("red", new List<Effect>());
-        PlayerData.onClearEffects["red"].Add(new RedCombo());
     }
 
     public void SpawnPiece() {
@@ -72,6 +68,8 @@ public class Board : MonoBehaviour {
         if (mirrorMode) {
             this.activePiece.Initialize(this, new Vector3Int((Bounds.xMin + this.spawnPosition.x) / 2, this.spawnPosition.y), data);
             this.mirroredPiece.Initialize(this, new Vector3Int(this.activePiece.position.x * -1 - 1, this.spawnPosition.y), data);
+
+
             if (IsValidPosition(this.activePiece, this.activePiece.position)) {
                 Set(this.activePiece);
             }
@@ -81,7 +79,10 @@ public class Board : MonoBehaviour {
             }
         }
         else {
+            this.mirroredPiece.enabled = false;
+
             this.activePiece.Initialize(this, this.spawnPosition, data);
+
             if (IsValidPosition(this.activePiece, this.spawnPosition))
                 Set(this.activePiece);
             else

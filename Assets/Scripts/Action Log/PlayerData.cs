@@ -10,7 +10,8 @@ public static class PlayerData {
     public static Dictionary<Tile, List<Token>> onClearTokens = new Dictionary<Tile, List<Token>>();
     public static Dictionary<TileBase, Token> allTokens = new Dictionary<TileBase, Token>();
 
-    public static double reqScore = 5000;
-    public static double money = 0;
+    public static int currRound = 2;
 
+    public static double reqScore = 500;
+    public static double money = 100;
 }

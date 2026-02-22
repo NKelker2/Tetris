@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,12 +13,13 @@ public abstract class Token {
     protected int cellPosition;
     public bool isActive;
 
-    public Token(Piece followingPiece, Tile icon, int cellPosition, bool mirrorMode) {
-        this.followingPiece = followingPiece;
+    public Token(Tile icon) {
         this.icon = icon;
-        this.cellPosition = cellPosition;
+        isActive = false;
+    }
 
-        isActive = true;
+    public void Initialize(Piece followingPiece, bool mirrorMode) {
+        this.followingPiece = followingPiece;
 
         this.position = followingPiece.position + followingPiece.cells[cellPosition];
         if (mirrorMode) {
@@ -28,19 +28,21 @@ public abstract class Token {
         }
     }
 
+    public void SetCellPosition(int cellPosition) {
+        this.cellPosition = cellPosition;
+    }
+
     public abstract int TokenEffect();
 
-    public void updatePosition() {
+    public void UpdatePosition() {
         this.position = this.followingPiece.position + this.followingPiece.cells[cellPosition];
         if (followingMirror != null)
             this.mirrorPosition = this.followingMirror.position + this.followingMirror.cells[cellPosition];
     }
 }
 
-public class TokenTest : Token {
-    public TokenTest(Piece followingPiece, Tile icon, int cellPosition, bool mirrorMode) : base(followingPiece, icon, cellPosition, mirrorMode) {
-        Log.PrintToGame("Created new token at: " + cellPosition);
-    }
+public class RedToken : Token {
+    public RedToken(Tile icon) : base(icon) { }
 
     public override int TokenEffect() {
         Log.PrintToGame("TokenTest provided 5 points");

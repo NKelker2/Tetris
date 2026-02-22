@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TokenTilemap : MonoBehaviour {
     public Tilemap tilemap;
-    public Tile[] TokenIcons;
     public Tile curr;
 
     //Ordered: blue, cyan, green, orange, purple, red, yellow    
@@ -13,6 +11,14 @@ public class TokenTilemap : MonoBehaviour {
 
     public Board board;
     public Piece followingPiece;
+
+    void Start() {
+        foreach (List<Token> list in PlayerData.onClearTokens.Values) {
+            foreach (Token token in list) {
+                token.Initialize(this.followingPiece, this.board.mirrorMode);
+            }
+        }
+    }
 
     void LateUpdate() {
         this.Set();
@@ -27,7 +33,7 @@ public class TokenTilemap : MonoBehaviour {
                         this.tilemap.SetTile(token.mirrorPosition, null);
                 }
 
-                token.updatePosition();
+                token.UpdatePosition();
 
                 this.tilemap.SetTile(token.position, token.icon);
                 if (board.mirrorMode)
@@ -47,7 +53,7 @@ public class TokenTilemap : MonoBehaviour {
                         this.tilemap.SetTile(token.mirrorPosition, null);
                 }
 
-                token.updatePosition();
+                token.UpdatePosition();
 
                 this.tilemap.SetTile(token.position, token.icon);
                 if (board.mirrorMode)

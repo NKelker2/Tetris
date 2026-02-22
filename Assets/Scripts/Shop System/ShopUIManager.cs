@@ -1,10 +1,9 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ShopUIManager : MonoBehaviour {
-    private ShopData shopData;
+    public ShopData shopData;
 
     public VisualElement shopUI;
     public ColorSelectManager ColorSelect;
@@ -97,7 +96,7 @@ public class ShopUIManager : MonoBehaviour {
             price = 3
         }
         else { */
-        shopItem = shopData.commonEffects[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+        shopItem = shopData.commonEffects[UnityEngine.Random.Range(0, shopData.commonEffects.Length)];
         price = 2;
         //}
 
@@ -115,7 +114,7 @@ public class ShopUIManager : MonoBehaviour {
         // rarity 1-5 = common, 6-9 = uncommon, 10 = rare for later implementation
         Sprite shopItem;
 
-        shopItem = shopData.tokens[UnityEngine.Random.Range(0, shopData.commonEffects.Count())];
+        shopItem = shopData.tokens[UnityEngine.Random.Range(0, shopData.commonEffects.Length)];
 
         TokenSlot.SetEnabled(true);
 

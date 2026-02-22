@@ -241,6 +241,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab15132e08a5ea94d89dd94b316b26e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SubMenuScript
+  tokenIcons:
+  - {fileID: 11400000, guid: 1e845afd5014e0d4b95b38c73931b4cc, type: 2}
+  tetrominoes:
+  - {fileID: 11400000, guid: b455598ac5856c241b1238a3f5ea54ce, type: 2}
+  - {fileID: 11400000, guid: 39ca471402018de4da2b4086fd788a51, type: 2}
+  - {fileID: 11400000, guid: 22a68d45a8f068a44b03a79c1101ba1b, type: 2}
+  - {fileID: 11400000, guid: 7bc8bb77e33a9494081ebc9b687c809e, type: 2}
+  - {fileID: 11400000, guid: 141093d7c69b0f34e97134a8d073f9ef, type: 2}
+  - {fileID: 11400000, guid: 905f44e90a86b0b42b3ab4285ec8ee3f, type: 2}
+  - {fileID: 11400000, guid: 268f093a014036941b10cebaf9490c5e, type: 2}
   shopUIManager: {fileID: 1572216040}
   tokenName: 
 --- !u!114 &299843854
@@ -312,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b793e1b4dec9a41bbfffc0d47c93ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopUIManager
+  shopData: {fileID: 0}
   ColorSelect: {fileID: 299843853}
   shopSlot1Name: 
   tokenSlot1Name: 

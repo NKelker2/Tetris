@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4354f1f3b9d406944acb84b77927f870
+guid: c8bd37ce3f53ae54581754561b034eb8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1049516504923998075
-    second: gtarg_alientext_msdf_0
+      213: 6613241131854215440
+    second: matrix_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gtarg_alientext_msdf_0
+      name: matrix_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 320
+        width: 2560
+        height: 1440
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7787ed53b1a09e00800000000000000
-      internalID: 1049516504923998075
+      spriteID: 0193c2e55c3f6cb50800000000000000
+      internalID: 6613241131854215440
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gtarg_alientext_msdf_0: 1049516504923998075
+      matrix_0: 6613241131854215440
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
